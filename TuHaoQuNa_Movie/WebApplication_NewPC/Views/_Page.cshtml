@@ -1,0 +1,74 @@
+﻿@{ 
+    int totalPage = ViewBag.TotalPage;
+    int page = ViewBag.Page;
+    string url = ViewBag.Url;
+    int /* 显示最大页码个数 */
+        page_num = 10,
+        /* 前面最大页显示几个上一页 */
+        page_top = 2;
+
+    var type = ViewBag.Type;
+    var country = ViewBag.Country;
+    var year = ViewBag.Year;
+    year = year == "all" ? "" : year;
+    var order = ViewBag.Order;
+}
+@if (totalPage > 1)
+{
+    <div class="text-center hidden-sm hidden-xs">
+        <ul class="tsc_pagination tsc_paginationA tsc_paginationA06">
+            @if (page > 1)
+            {
+                <li><a class="prev" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : "/" + year),
+                                                     type,
+                                                     country,
+                                                     order,
+                                                     page-1
+                                                     ))">&nbsp;</a></li>
+
+            }
+            @for (
+                int i = (page > (page_top + 1) ? page - page_top : 1); 
+                i < ((totalPage - (page > (page_top + 1) ? page - page_top : 1)) > ((page > (page_top + 1) ? page - page_top : 1) + page_num) ? ((page > (page_top + 1) ? page - page_top : 1) + page_num) : totalPage);
+                i++)
+            {
+                if (page == i)
+                {
+                    <li class="active"><span class="current">@i</span></li>
+                }
+                else
+                {
+                    <li><a class="num" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : "/" + year),
+                                                     type,
+                                                     country,
+                                                     order,
+                                                     i
+                                                     ))">@i</a></li>
+                }
+            }
+            @if (totalPage > page)
+            {
+                <li><a class="next" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : "/" + year),
+                                                     type,
+                                                     country,
+                                                     order,
+                                                     page+1
+                                                     ))">&nbsp;</a></li>
+            }
+            <li><a class="end" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : "/" + year),
+                                                     type,
+                                                     country,
+                                                     order,
+                                                     totalPage
+                                                     ))">...@totalPage</a></li>
+        </ul>
+    </div>
+}

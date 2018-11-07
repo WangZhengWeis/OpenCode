@@ -1,0 +1,17 @@
+﻿@model List<Model.GaoQing.BaseMovie>
+@if (Model != null)
+{
+    foreach (var m in Model)
+    {
+        <li>
+            @if (m.Rate.HasValue)
+                    {
+                <div class="rate_view">@m.Rate</div>
+            }
+            <a title="@m.Title" href="/movie/detailte/@m.Hash" target="_blank">
+                <img alt="@m.Name" class="lazy" src="@m.Poster">
+                <div class="img-list-title"><span>@m.Name</span></div>
+            </a>
+        </li>
+    }
+}

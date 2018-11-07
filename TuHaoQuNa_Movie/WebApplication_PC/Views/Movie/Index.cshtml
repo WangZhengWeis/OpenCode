@@ -1,0 +1,92 @@
+﻿@using Utility
+@{
+    ViewBag.Title = "高清电影";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string sort = Request.QueryString["sort"];
+}
+
+<div class="row" id="indexshow">
+    <!-- 左边内容 -->
+    <div class="col-md-9" style="width:660px">
+        <!-- 网站轮播公告 -->
+        @RenderPage("~/Views/Shared/_Notice.cshtml")
+        <div class="row" style="margin-left:13px">
+            
+            <!-- 排序方式 -->
+            <ul style="float:right;" class="nav" id="listselect">
+                <li style="float:left;"><a>排序：</a></li>
+                @{
+                    if (sort == "评分")
+                    {
+                        <li style="float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "sort","热门" } }))">热门</a></li>
+                        <li style="float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "sort","最新" } }))">最新</a></li>
+                        <li class="current" style="float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "sort","评分" } }))">评分</a></li>
+                    }
+                    else if (sort == "热门")
+                    {
+                        <li class="current" style="float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "sort","热门" } }))">热门</a></li>
+                        <li style="float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "sort","最新" } }))">最新</a></li>
+                        <li style="float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "sort","评分" } }))">评分</a></li>
+                    }
+                    else
+                    {
+                        <li style="float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "sort","热门" } }))">热门</a></li>
+                        <li class="current" style="float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "sort","最新" } }))">最新</a></li>
+                        <li style="float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "sort","评分" } }))">评分</a></li>
+                    }
+
+                }
+            </ul>
+            <!-- 排序方式结束 -->
+            @*<br />*@
+            <ul class="nav navbar-nav">
+                <!-- 类型选择 -->
+                @{
+                    Html.RenderAction("Genre", "Movie");
+                }
+                <!-- 类型选择结束 -->
+                <!-- 地区选择 -->
+                @{
+                    Html.RenderAction("Country", "Movie");
+                }
+                <!-- 地区选择结束 -->
+                <!-- 年代选择 -->
+                @{
+                    Html.RenderAction("Year", "Movie");
+                }
+                <!-- 年代选择结束 -->
+            </ul>
+        </div>
+        <ul id="result1" class="item-list nav">
+            <!-- 影片数据展示 -->
+            @{
+                //Html.RenderAction("List", "Movie");
+                Html.RenderAction("List", "Movie");
+            }
+        </ul>
+        <!-- 底部加载更多 -->
+        <div class="col-md-12" style="width:600px;margin-left:20px;background:#efefef;padding:5px 0px;" align="center">
+            <a style="width:100%;" onclick='return loadnext("@Request.QueryString["type"]","@Request.QueryString["country"]","@Request.QueryString["year"]",  "@Request.QueryString["actor"]","@Request.QueryString["director"]","@Request.QueryString["sort"]")' href="javascript:;">加载更多</a>
+        </div>
+        <!-- 底部加载更多结束 -->
+</div>
+    <!-- 左边内容 -->
+    @*@{Html.RenderPartial("~/Views/Shared/_Right.cshtml");}*@
+    @RenderPage("~/Views/Shared/_Right.cshtml")
+</div>
+<script type="text/javascript" charset="utf-8" src="https://changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysEpIyck"></script>
+<script>
+    var p = 1; var scrollindex = 1050;
+    //1960
+    function loadnext(type, country, year, actor, director, sort) {
+        p++;
+        $.ajax({
+            type: "GET",
+            url: "/movie/list?type=" + type + "&country=" + country + "&director=" + director + "&actor=" + actor + "&year=" + year + "&page=" + p + "&sort=" + sort,
+            dataType: "html",
+            success: function (out) { $("#result1").html($("#result1").html() + out); $('body').animate({ scrollTop: scrollindex + 'px' }, 800); scrollindex += 1225; }
+        });
+        return false;
+    }
+</script>

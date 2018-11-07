@@ -1,0 +1,28 @@
+﻿@model List<Model.GaoQing.BaseMovie>
+
+@if (Model != null)
+{
+    foreach (var m in Model)
+    {
+        <li>
+            <div>
+                <div class="pull-left x-movie-mediumimg">
+                    @if (m.Rate.HasValue)
+                    {
+                        <div class="imdb_index">@String.Format("{0:N1}", m.Rate)</div>
+                    }
+                    @*<div class="sub_index">老司机</div>*@
+                    <a data-movie="playmask" class="z-movie-playlink" target="_blank" href="/movie/detailte/@m.Hash">
+                        <div id="indeximg">
+                            <img onerror=defaultimg(this) alt="@m.Name" src="@m.Poster" data-bd-imgshare-binded="1">
+                        </div>
+                        <div class="z-movie-playmask" style="visibility: visible;"></div>
+                    </a>
+                </div>
+                <div class="item-desc pull-left">
+                    <p style="text-align:center;width:150px;line-height:12px;position: relative;top: 50%;transform: translateY(-50%);"><a target="_blank" href="javascript:void(0);">@m.Name</a> <span style="color:#CF0000">@(m.Rate.HasValue ? String.Format("{0:N1}", m.Rate):"")</span></p>
+                </div>
+            </div>
+        </li>
+    }
+}

@@ -1,0 +1,278 @@
+﻿@model Model.GaoQing.Movie
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <h2 style="margin-top:10px"><a style="text-decoration:none;color:black">@(string.IsNullOrWhiteSpace(Model.Title) ? Model.Name : Model.Title)</a><span class="text-muted"></span></h2>
+        </div>
+        <div class="col-md-3" style="width:140px;padding:3px 0">
+            <div class="x-m-poster">
+                <a href="">
+                    <img alt="@Model.Name" class="img-thumbnail img-responsive" src="@Model.Poster">
+                </a>
+            </div>
+        </div>
+        <div class="col-md-9" style="height:100%;">
+            <div>
+                <div id="viewfilm" style="font-size:12px;width:300px">
+                    @{
+                        if (Model.Director != null)
+                        {
+                            if (Model.Director.Count > 0)
+                            {
+                                <span class='x-m-label'>导演</span>@Html.Raw("：")
+                                for (int i = 0; i < Model.Director.Count; i++)
+                                {
+                                    var m = Model.Director[i];
+                                    if (i + 1 != Model.Director.Count)
+                                    {
+                                        <a href="/?director=@m.ID@(Model.Family==1?"": "&family=电视剧")">@m.Name</a>
+                                        @Html.Raw(" / ")
+                                    }
+                                    else
+                                    {
+                                        <a href="/?director=@m.ID@(Model.Family==1?"": "&family=电视剧")">@m.Name</a>
+                                    }
+                                }
+                                <br>
+                            }
+                        }
+                    }
+                
+                    @{
+                        if (Model.Screenwriter != null)
+                        {
+                            if (Model.Screenwriter.Count > 0)
+                            {
+                                <span class="x-m-label">编剧</span>@Html.Raw("：")
+                                for (int i = 0; i < Model.Screenwriter.Count; i++)
+                                {
+                                    var m = Model.Screenwriter[i];
+                                    if (i + 1 != Model.Screenwriter.Count)
+                                    {
+                                        <a href="/?screenwriter=@m.ID@(Model.Family==1?"": "&family=电视剧")">@m.Name</a>
+                                        @Html.Raw(" / ")
+                                    }
+                                    else
+                                    {
+                                        <a href="/?screenwriter=@m.ID@(Model.Family==1?"": "&family=电视剧")">@m.Name</a>
+                                    }
+                                }
+                                <br>
+                            }
+                        }
+                    }
+                
+                    @{
+                        if (Model.Performer != null)
+                        {
+                            if (Model.Performer.Count > 0)
+                            {
+                                <span class="x-m-label">主演</span>@Html.Raw("：")
+                                for (int i = 0; i < Model.Performer.Count; i++)
+                                {
+                                    var m = Model.Performer[i];
+                                    if (i + 1 != Model.Performer.Count)
+                                    {
+                                        <a href="/?actor=@m.ID@(Model.Family==1?"": "&family=电视剧")">@m.Name</a>
+                                        @Html.Raw(" / ")
+                                    }
+                                    else
+                                    {
+                                        <a href="/?actor=@m.ID@(Model.Family==1?"": "&family=电视剧")">@m.Name</a>
+                                    }
+                                }
+                                <br>
+                            }
+                        }
+                    }
+                    
+                    @{
+                        if (Model.Category != null)
+                        {
+                            if (Model.Category.Count > 0)
+                            {
+                                <span class="x-m-label">类型</span>@Html.Raw("：")
+                                for (int i = 0; i < Model.Category.Count; i++)
+                                {
+                                    var m = Model.Category[i];
+                                    if (i + 1 != Model.Category.Count)
+                                    {
+                                        <a href="/?type=@m.ID@(Model.Family==1?"": "&family=电视剧")">@m.Name</a>
+                                        @Html.Raw(" / ")
+                                    }
+                                    else
+                                    {
+                                        <a href="/?type=@m.ID@(Model.Family==1?"": "&family=电视剧")">@m.Name</a>
+                                    }
+                                }
+                                <br>
+                            }
+                        }
+                    }
+                    
+                    @{
+                        if (Model.Country != null)
+                        {
+                            if (Model.Country.Count > 0)
+                            {
+                                <span class="x-m-label">地区</span>@Html.Raw("：")
+                                for (int i = 0; i < Model.Country.Count; i++)
+                                {
+                                    var m = Model.Country[i];
+                                    if (i + 1 != Model.Country.Count)
+                                    {
+                                        <a href="/?country=@m.ID@(Model.Family==1?"": "&family=电视剧")">@m.Name</a>
+                                        @Html.Raw(" / ")
+                                    }
+                                    else
+                                    {
+                                        <a href="/?country=@m.ID@(Model.Family==1?"": "&family=电视剧")">@m.Name</a>
+                                    }
+                                }
+                                <br>
+                            }
+                        }
+                    }
+                    
+                    @{
+                        if (Model.ReleaseTime != null)
+                        {
+                            if (Model.ReleaseTime.Count > 0)
+                            {
+                                <span class="x-m-label">@(Model.Family == 1 ? "上映" : "首播")</span>@Html.Raw("：")
+                                for (int i = 0; i < Model.ReleaseTime.Count; i++)
+                                {
+                                    var m = Model.ReleaseTime[i];
+                                    if (i + 1 != Model.ReleaseTime.Count)
+                                    {
+                                        @(Html.Raw(m.ReleaseDate.Value.ToString("yyyy-MM-dd") + (string.IsNullOrWhiteSpace(m.Place) ? "" : "(" + m.Place + ")")))
+                                        @Html.Raw(" / ")
+                                    }
+                                    else
+                                    {
+                                        @(Html.Raw(m.ReleaseDate.Value.ToString("yyyy-MM-dd") + (string.IsNullOrWhiteSpace(m.Place) ? "" : "(" + m.Place + ")")))
+                                    }
+                                }
+                                <br>
+                            }
+                        }
+                    }
+
+                    @{
+                        if (Model.Season != null)
+                        {
+                            if (Model.Season.Count > 0)
+                            {
+                                <span class="x-m-label">季数</span>@Html.Raw("：")
+                                <select onchange="self.location.href=options[selectedIndex].value">
+                                @foreach (var m in Model.Season.OrderBy(o => o.SeasonNum))
+                                {
+                                    if (m.Hash == Model.Hash)
+                                    {
+                                        <option value="/movie/detailte/@m.Hash" selected="selected">@m.SeasonNum</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="/movie/detailte/@m.Hash">@m.SeasonNum</option>
+                                    }
+                                }
+                                </select>
+                                <br>
+                            }
+                        }
+                    }
+
+                    @{
+                        if (Model.Episodes.HasValue)
+                        {
+                            <span class="x-m-label">集数</span>@(Html.Raw("：" + Model.Episodes.Value))
+                            <br>
+                        }
+                    }
+
+                    @{
+                        if (Model.LongTime != null)
+                        {
+                            if (Model.LongTime.Count > 0)
+                            {
+                                <span class="x-m-label">@(Model.Family==1?"片长": "单集片长")</span>@Html.Raw("：")
+                                for (int i = 0; i < Model.LongTime.Count; i++)
+                                {
+                                    var m = Model.LongTime[i];
+                                    if (i + 1 != Model.LongTime.Count)
+                                    {
+                                        @(Html.Raw(m.Minute+"分钟"+(string.IsNullOrWhiteSpace(m.Country)?"":"("+ m.Country + ")")))
+                                        @Html.Raw(" / ")
+                                    }
+                                    else
+                                    {
+                                        @(Html.Raw(m.Minute + "分钟" + (string.IsNullOrWhiteSpace(m.Country) ? "" : "(" + m.Country + ")")))
+                                    }
+                                }
+                                <br />
+                            }
+                        }
+                    }
+                    @{
+                        if (Model.MoreName != null)
+                        {
+                            if (Model.MoreName.Count > 0)
+                            {
+                                <span class="x-m-label">又名</span>@Html.Raw("：")
+                                for (int i = 0; i < Model.MoreName.Count; i++)
+                                {
+                                    var m = Model.MoreName[i];
+                                    if (i + 1 != Model.MoreName.Count)
+                                    {
+                                        @(Html.Raw(m.Name))
+                                        @Html.Raw(" / ")
+                                    }
+                                    else
+                                    {
+                                        @(Html.Raw(m.Name))
+                                    }
+                                }
+                                <br>
+                            }
+                        }
+                    }
+                    
+                    <span class="x-m-label">评分</span>：<span class='badge' style='font-weight: bold;'>@Model.Rate</span>
+                    <br>
+                </div>
+            </div>
+            @*<div id="result1" class="fm-bigact pull-right">
+                <a href="javascript:;" id="plan" onclick="$('#login_wrapper').show();" opt="1" hash="e61e321a4fdf" class="collect btn btn-default btn-sm " rel="nofollow" data-movie="forrest-gump" data-cat="planned" data-class="btn-warning" title="加入观看计划">
+                    <span class="glyphicon glyphicon-time"></span>
+                    <span class="fm-opt-label">1</span> 人想看
+                </a>
+                <a href="javascript:;" id="watch" onclick="$('#login_wrapper').show();" opt="2" hash="e61e321a4fdf" class="collect btn btn-default btn-sm " rel="nofollow" data-movie="forrest-gump" data-cat="watched" data-class="btn-success" title="标记已经观看">
+                    <span class="glyphicon glyphicon-check"></span>
+                    <span class="fm-opt-label"> 17</span> 人已看
+                </a>
+                <a href="javascript:;" onclick="$('#login_wrapper').show();" id="like" opt="3" hash="e61e321a4fdf" class="collect btn btn-default btn-sm " rel="nofollow" data-movie="forrest-gump" data-cat="liked" data-class="btn-danger" title="好电影共同分享">
+                    <span class="glyphicon glyphicon-heart"></span>
+                    <span class="fm-opt-label"> 4</span> 人推荐
+                </a>
+            </div>*@
+        </div>
+    </div>
+    <div class="area" style="margin-bottom:6px;margin-top:6px;">
+        <div class="row-fluid">
+            <div>
+                <div class="" style="clear:both; padding-top: 10px;">
+                    <h4 class="yjbjs">剧情介绍</h4>
+                    <div class="x-m-summary" style="background: #FFF;padding: 10px;color: #777;font-size:12px">
+                        <p id="des-ex">
+                            @(Html.Raw(Model.Description))
+                        </p>
+                        @*<p id="des-full">
+                                @Html.Raw(Model.Description.Substring(0,100)+ "...") <a href="javascript:;" onclick="$('#des-full').hide();$('#des-ex').show();">显示全部</a>
+                            </p>*@
+                    </div><br>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,23 @@
+﻿<div class="navbar navbar-default navbar-fixed-top" style="background-color:#f0f3f5;">
+    <div class="container" style="width:975px">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a class="navbar-brand" href="/"><i class="glyphicon glyphicon-home"></i> 高清电影</a></li>
+                <li><a class="navbar-brand" href="/?family=电视剧"><i class="glyphicon glyphicon-film"></i> 电视剧</a></li>
+                @*<li><a class="navbar-brand" href="/XXX"><i class="glyphicon glyphicon-th-list"></i> 滴.快上车</a></li>*@
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-brand" href="/other/about"><i class="glyphicon glyphicon-question-sign"></i> 帮助</a></li>
+                @*<li><a class="navbar-brand" href="/account/login"><i class="glyphicon glyphicon-list-alt"></i> 用户登陆</a></li>
+                <li><a class="navbar-brand" href="/account/signup"><i class="glyphicon glyphicon-user"></i> 用户注册</a></li>*@
+            </ul>
+            <form class="navbar-form navbar-left" action="/movie/search">
+                <div class="input-group" style="width:500px">
+                    <input class="form-control" id="q" maxlength="30" name="q" value="" placeholder="支持中文名、英文名、导演、编剧、演员等关键词" type="text" />
+                    <span class="input-group-btn"> <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> </span>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

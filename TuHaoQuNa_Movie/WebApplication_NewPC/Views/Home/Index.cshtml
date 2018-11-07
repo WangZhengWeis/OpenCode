@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="nav-container ">
+    <div class="bar bar--sm visible-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-3 col-sm-2">
+                    <a href="/">
+                        <img class="logo logo-dark" alt="logo" src="/img/logo-dark.png" />
+                        <img class="logo logo-light" alt="logo" src="/img/logo-light.png" />
+                    </a>
+                </div>
+                <div class="col-xs-9 col-sm-10 text-right">
+                    <a href="#" class="hamburger-toggle toggled-class" data-toggle-class="#menu2;hidden-xs hidden-sm">
+                        <i class="icon icon--sm stack-interface stack-menu"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="background-overlay  hidden-xs hidden-sm"></div>
+    @Html.Partial("~/Views/Shared/_TopMenu.cshtml")
+    @Html.Partial("~/Views/Shared/_Search.cshtml")
+</div>
+<div class="main-container">
+    <section class="text-center height-60 imagebg" data-overlay="4">
+        <div class="background-image-holder" style="background: url(/background/herobg.png); opacity: 1;">
+            <img alt="background" src="/background/herobg.png">
+        </div>
+        <div class="container pos-vertical-center">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="typed-headline">
+                        <span class="h1 inline-block">tuhaoquna.com — 土豪去哪</span>
+                    </div>
+                    <p class="lead">
+                        影迷的一片净土
+                    </p>
+                    <a class="btn btn--primary type--uppercase" href="/movie">
+                        <span class="btn__text">
+                            开始探索
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="imagebg bg--dark" style="padding: 3em 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <div class="masonry masonry-demos">
+                        @RenderPage("~/Views/_List.cshtml")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @Html.Partial("~/Views/Shared/_BottomCopyright.cshtml")
+</div>
+

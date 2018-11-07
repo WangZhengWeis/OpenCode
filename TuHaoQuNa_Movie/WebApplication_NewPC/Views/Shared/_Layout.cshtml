@@ -1,0 +1,42 @@
+﻿<!doctype html>
+<html lang="zh-cmn-Hans" class="ua-windows ua-webkit">
+<head>
+    <meta charset="utf-8">
+    <title>@(string.IsNullOrWhiteSpace(ViewBag.Title) ? "" : ViewBag.Title + " - ")土豪去哪</title>
+    <meta name="description" content="tuhaoquna.com 土豪去哪是国内独树一帜的影视站点，资源全面，设计优雅，毫无广告，体验远超bt天堂，电影天堂，飘花电影，飞鸟娱乐，电影淘淘，MP4ba等站，是下载电影、下载字幕、观看影片最佳网站。">
+    <meta name="keywords" content="bt天堂,1080p电影,高清电影下载,最新电影,不太灵,电影天堂,mp4ba,字幕下载,字幕组,字幕库,subhd">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/theme.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/customv.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/dist/bundle.min.js"></script>
+    <link rel="icon" href="/favicon.ico" />
+
+</head>
+<body>
+    @RenderBody()
+    <a class="back-to-top inner-link" href="#start" data-scroll-class="100vh:active">
+        <i class="stack-interface stack-up-open-big"></i>
+    </a>
+    <script>
+        $(document).ready(function () {
+            $("[class='text-center height-60 imagebg']").delay(2000).animate({height: "40vh",paddingBottom:"0.6em"});
+        });
+    </script>
+    <script type="text/javascript">
+
+        $(function () {
+            $(".poster").each(function() {
+                var img = $(this);
+                img.on("error",function() {
+                    //可以选择替换图片
+                    img.attr("src","/img/"+img.attr("family")+".png")
+                });
+            });
+        });
+    </script>
+</body>
+</html>

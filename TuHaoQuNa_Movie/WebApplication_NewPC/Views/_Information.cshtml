@@ -1,0 +1,60 @@
+﻿@model Movie
+@if (Model != null)
+{
+    if (Model.MovieInfo != null)
+    {
+        <div class="tab__content">
+            <div class="container">
+                @if (Model.MovieInfo.Director != null)
+                {
+                    <div class="directors">
+                        <span class="type--bold">导演：</span>
+                        <div class="tag-box">
+                            @foreach (var item in Model.MovieInfo.Director)
+                            {
+                                <a class="name-cast" href="/search/?celebrity=@item.ID" target="_blank">
+                                    <span itemprop="director" class="releated-people-tags" itemscope="">
+                                        <span itemprop="name">@item.Name</span>
+                                    </span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+                @if (Model.MovieInfo.Screenwriter != null)
+                {
+                    <div class="directors" style="margin-top: 12px">
+                        <span class="type--bold">编剧：</span>
+                        <div class="tag-box">
+                            @foreach (var item in Model.MovieInfo.Screenwriter)
+                            {
+                                <a class="name-cast" href="/search/?celebrity=@item.ID" target="_blank">
+                                    <span itemprop="director" class="releated-people-tags" itemscope="">
+                                        <span itemprop="name">@item.Name</span>
+                                    </span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+                @if (Model.MovieInfo.Performer != null)
+                {
+                    <div class="directors" style="margin-top: 12px">
+                        <span class="type--bold">主演：</span>
+                        <div class="tag-box">
+                            @foreach (var item in Model.MovieInfo.Performer)
+                            {
+                                <a class="name-cast" href="/search/?celebrity=@item.ID" target="_blank">
+                                    <span itemprop="director" class="releated-people-tags" itemscope="">
+                                        <span itemprop="name">@item.Name</span>
+                                    </span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    }
+}

@@ -1,0 +1,16 @@
+﻿@using Utility
+@model List<Model.GaoQing.Category>
+@{
+    string type = Request.QueryString["type"];
+    var type_obj = Model.FirstOrDefault(m => m.ID == Utility.Utils.StrToInt(type, 0));
+}
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@(type_obj == null?"类型":type_obj.Name)<b class="caret"></b></a>
+    <ul class="dropdown-menu" style="width:460px">
+        <li style="width:150px"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "type","" } }))">不限</a></li>
+        @foreach (var item in Model)
+        {
+            <li style="width:150px;float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "type",item.ID.ToString() } }))">@item.Name</a></li>
+        }
+    </ul>
+</li>

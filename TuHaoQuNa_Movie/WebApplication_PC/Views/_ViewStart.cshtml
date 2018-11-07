@@ -1,0 +1,6 @@
+﻿@{ 
+    if (Request.Browser.IsMobileDevice)
+    {
+        Response.Redirect(Utility.ConfigHelper.GetAppSettings("MobileWebSite"));
+    }
+}

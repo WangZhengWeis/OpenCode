@@ -1,0 +1,47 @@
+﻿@model Model.Player
+@{
+    ViewBag.Title = Model==null?"":Model.Name+(Model.Episodes.HasValue?" 第"+Model.Episodes.Value.ToString()+"集":"")+" 正在播放...";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int ramdom_num = new Random().Next(1, 32);
+}
+<div class="nav-container ">
+    <div class="bar bar--sm visible-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-3 col-sm-2">
+                    <a href="/">
+                        <img class="logo logo-dark" alt="logo" src="/img/logo-dark.png" />
+                        <img class="logo logo-light" alt="logo" src="/img/logo-light.png" />
+                    </a>
+                </div>
+                <div class="col-xs-9 col-sm-10 text-right">
+                    <a href="#" class="hamburger-toggle toggled-class" data-toggle-class="#menu2;hidden-xs hidden-sm">
+                        <i class="icon icon--sm stack-interface stack-menu"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="background-overlay  hidden-xs hidden-sm"></div>
+    @Html.Partial("~/Views/Shared/_TopMenu.cshtml")
+    @Html.Partial("~/Views/Shared/_Search.cshtml")
+</div>
+<div class="main-container">
+    <section class="imagebg bg--dark" style="padding-bottom: 3em">
+        <div class="background-image-holder" style="background: url(/background/background@(ramdom_num).jpg); opacity: 1;height: 700px;">
+            <img alt="background" src="/background/background@(ramdom_num).jpg">
+        </div>
+
+        <div class="container">
+            <div class="row">
+                @if (Model != null)
+                {
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <iframe width="100%" height="600px" id="iframeSon" allowtransparency="true" frameborder="0" scrolling="no" src="http://player.tuhaoquna.com?url=@Model.PlayerUrl" name="main"></iframe>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    @Html.Partial("~/Views/Shared/_BottomCopyright.cshtml")
+</div>

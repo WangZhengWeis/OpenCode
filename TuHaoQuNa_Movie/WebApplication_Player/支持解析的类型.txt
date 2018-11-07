@@ -1,0 +1,17 @@
+音乐台		http://www.yinyuetai.com/
+虎牙视频	http://v.huya.com/
+芒果TV		http://www.mgtv.com
+芒果TV[VIP]	http://www.mgtv.com
+腾讯视频	http://v.qq.com
+糖豆		http://www.tangdou.com
+搜狐		http://tv.sohu.com/
+搜狐[VIP]	http://tv.sohu.com/
+我乐网		http://www.56.com/
+央视		http://dianshiju.cctv.com/
+哔哩哔哩	https://www.bilibili.com/
+优酷		http://www.youku.com
+优酷[VIP]	http://www.youku.com
+乐视		http://www.le.com
+乐视[VIP]	http://www.le.com
+PPTV		http://www.pptv.com/
+PPTV[VIP]	http://www.pptv.com/

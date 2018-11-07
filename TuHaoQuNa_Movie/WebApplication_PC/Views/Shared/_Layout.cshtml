@@ -1,0 +1,85 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>@ViewBag.Title-高清电影、电影字幕、在线点播、磁力链接、BT种子下载聚合网站！</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta name="keywords" content="@(ViewBag.Title)、高清电影下载、1080p高清电影下载、中国高清网、高清电影、720p、1080p、蓝光原盘、3D高清、电影下载、磁力链接、高清电影种子、电影种子、BT种子">
+    <meta name="description" content="土豪去哪每天关注高清电影的720p高清、1080p高清、蓝光原盘高清、高清3d高清、高清mv的磁力链接下载、在线直播、预告片及资讯，是高清电影下载的电影天堂！">
+    <meta name="description" content="@(ViewBag.Title)高清下载,在线点播,磁力链下载,电影简介和剧情介绍,你的名字。影评、图片、预告片、影讯">  
+    @*<script>
+        if (((/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))))) {
+            window.location.href = "http://m.tuhaoquna.com";
+        }
+    </script>*@
+    <link rel="stylesheet" href="//cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="//cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+    <style type="text/css">
+        #ds-recent-comments li.ds-comment {
+            border-top: 1px dotted #ccc !important;
+        }
+
+        ul.ds-recent-comments {
+            padding: 0 !important;
+        }
+
+        .collection {
+            position: absolute;
+            z-index: 2;
+            bottom: 26px;
+            right: 20px;
+            padding-left: 5px;
+            color: #fff;
+            font-weight: bold;
+            text-align: left;
+            line-height: 16px;
+            font-size: 12px;
+        }
+
+        #indeximg img {
+            width: 139px;
+            height: 200px;
+        }
+    </style>
+    <script type="text/javascript">
+        function AutoScroll(obj) {
+            $(obj).find("ul").animate({
+                marginTop: "-20px"
+            }, 500, function () {
+                $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
+            });
+        }
+        $(document).ready(function () {
+            var myar = setInterval('AutoScroll("#notice")', 3000);
+            $("#notice").hover(function () { clearInterval(myar); }, function () { myar = setInterval('AutoScroll("#notice")', 3000) });
+        });
+    </script>
+</head>
+<body style="padding-top: 70px;">
+    <!-- 头部菜单 -->
+    @Html.Partial("~/Views/Shared/_TopMenu.cshtml")
+    <!-- 头部菜单结束 -->
+
+    <div class="container">
+        <div class="row">
+            <div id="mainrow" class="col-md-10 col-md-offset-1">
+                @RenderBody()
+                <div style="width: 45px; float: right;position: fixed; right: 20px;bottom: 150px;">
+                    <a href="/" style="width: 45px;height: 45px;background: #A7D0EC url(/img/icon.png) no-repeat;display: block;margin-bottom: 5px;filter: alpha(Opacity=50);-moz-opacity: 0.5; opacity: 0.5;background-position: 0 5px;"></a>
+                    <a href="javascript:;" onclick="$('html,body').animate({scrollTop: '0px'}, 500);" style="width: 45px; height: 45px;background: #A7D0EC url(/img/icon.png) no-repeat;display: block;margin-bottom: 5px;filter: alpha(Opacity=50);-moz-opacity: 0.5;opacity: 0.5;background-position: 0 -100px;"></a>
+                </div>
+                <!-- 底部版权 -->
+                @Html.Partial("~/Views/Shared/_BottomCopyright.cshtml")
+                <!-- 底部版权结束 -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

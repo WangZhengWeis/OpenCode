@@ -1,0 +1,135 @@
+﻿@model Movie
+@if (Model != null)
+{
+    if (Model.MovieInfo != null)
+    {
+        <section class="imagebg bg--dark" style="background:#1a151c;padding-bottom: 3em;">
+            <div class="container" id="movie-content" itemscope="">
+                <div class="container" style="margin-top: 3em;">
+                    <div class="col-md-4">
+                        <div class="masonry masonry-demos">
+                            <div class="masonry__container masonry--active">
+                                <div class="masonry__item">
+                                    <div>
+                                        <img width="300px" class="poster" family="@(Model.MovieInfo.Family==1?"movie":"tvshow")" style="border-radius:10px " alt="@Model.MovieInfo.Name" src="@Model.MovieInfo.Poster" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="margin-bottom:2em">
+                        <span style="font-size: 2em;font-weight: 700;color:#be997f;display: block;margin-bottom: .5em">@Model.MovieInfo.Name</span>
+                        @if (Model.MovieInfo.Rate.HasValue)
+                        {
+                            <span class="tiny-title">豆瓣评分: <span style="font-size: 2em;font-weight: 700;color:#fc9b35;">@(String.Format("{0:N1}", Model.MovieInfo.Rate))</span></span>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.MovieInfo.Title))
+                        {
+                            <span class="tiny-title">标题: @Model.MovieInfo.Title</span>
+                        }
+                        @if (Model.MovieInfo.MoreName!=null)
+                        {
+                            var str = "";
+                            Model.MovieInfo.MoreName.ForEach(m=> {
+                                str += string.IsNullOrWhiteSpace(m.Name) ? "" : m.Name + "/";
+                            });
+                            str = str.TrimEnd('/');
+                            <span class="tiny-title">又名: @str</span>
+                        }
+                        @if (Model.MovieInfo.ReleaseTime != null)
+                        {
+                            var str = "";
+                            Model.MovieInfo.ReleaseTime.ForEach(m =>
+                            {
+                                str += m.ReleaseDate.HasValue ? (m.ReleaseDate.Value.ToString("yyyy-MM-dd") + (string.IsNullOrWhiteSpace(m.Place) ? "" : "(" + m.Place + ")")+"/") : "";
+                            });
+                            str = str.TrimEnd('/');
+                            <span class="tiny-title">上映时间: @str</span>
+                        }
+                        @if (Model.MovieInfo.Category != null)
+                        {
+                            var str = "";
+                            Model.MovieInfo.Category.ForEach(m =>
+                            {
+                                str += string.IsNullOrWhiteSpace(m.Name) ? "" : m.Name + "/";
+                            });
+                            str = str.TrimEnd('/');
+                            <span class="tiny-title">类型: @str</span>
+                        }
+                        @if (Model.MovieInfo.LongTime != null)
+                        {
+                            var str = "";
+                            Model.MovieInfo.LongTime.ForEach(m =>
+                            {
+                                str += m.Minute+"分钟"+ (string.IsNullOrWhiteSpace(m.Country)?"":"("+m.Country+")") + "/";
+                            });
+                            str = str.TrimEnd('/');
+                            <span class="tiny-title">片长: @str</span>
+                        }
+                        @if (Model.MovieInfo.Country != null)
+                        {
+                            var str = "";
+                            Model.MovieInfo.Country.ForEach(m =>
+                            {
+                                str += string.IsNullOrWhiteSpace(m.Name) ? "" : m.Name + "/";
+                            });
+                            str = str.TrimEnd('/');
+                            <span class="tiny-title">地区: @str</span>
+                        }
+                        @if (Model.MovieInfo.Episodes.HasValue)
+                        {
+                            if (Model.MovieInfo.Episodes.Value > 0)
+                            {
+                                <span class="tiny-title">集数: @Model.MovieInfo.Episodes.Value</span>
+                            }
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.MovieInfo.Subject))
+                        {
+                            <span class="tiny-title">豆瓣ID: <a target="_blank" class="tag-transparent type--italic" href="https://movie.douban.com/subject/@Model.MovieInfo.Subject">@(Model.MovieInfo.Subject)</a></span>
+                        }
+                        @if (Model.MovieTorrent != null)
+                        {
+                            if (Model.MovieTorrent.Count > 0)
+                            {
+                                <span class="tiny-title">种子资源数: <span style="font-size: 1.3em;font-weight: 600;color:#3598dc;">@Model.MovieTorrent.Count</span></span>
+                                var group = Model.MovieTorrent.GroupBy(m => m.Clear);
+                                <span style="display: block;margin-bottom: 1em">
+                                    @{ 
+                                        int key_num = 1;
+                                    }
+                                    @foreach (var item in group)
+                                    {
+                                        <a class="tag-transparent type--italic" href="#@item.Key">@item.Key</a>
+                                        if (key_num % 4 == 0)
+                                        {
+                                            <br />
+                                        }
+                                        key_num++;
+                                    }
+                                </span>
+                            }
+                        }
+                        @*<a class="btn btn--icon bg--googleplus" href="/online/42631.html" target="_blank"><span class="btn__text" style="margin-bottom: 0"><i class="socicon socicon-youtube"></i>可在线播放</span></a>*@
+                        @if (Model.Player != null)
+                        {
+                            if (Model.Player.Count > 0)
+                            {
+                                <a class="btn btn--icon bg--googleplus" href="/Player/@Model.Player.OrderBy(o=>o.Episodes).FirstOrDefault().ID" target="_blank"><span class="btn__text" style="margin-bottom: 0"><i class="socicon socicon-youtube"></i>可在线播放</span></a>
+                            }
+                        }
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(Model.MovieInfo.Description))
+                    {
+                        <div class="col-md-4">
+                            <span style="font-size: 2em;font-weight: 700;color:#907e91;margin-bottom: .5em;display: block">剧情:</span><article class="information-text">
+                                <span property="v:summary" class="">
+                                    @Html.Raw(Model.MovieInfo.Description)
+                                </span>
+                            </article>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+}

@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="nav-container ">
+    <div class="bar bar--sm visible-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-3 col-sm-2">
+                    <a href="/">
+                        <img class="logo logo-dark" alt="logo" src="/img/logo-dark.png" />
+                        <img class="logo logo-light" alt="logo" src="/img/logo-light.png" />
+                    </a>
+                </div>
+                <div class="col-xs-9 col-sm-10 text-right">
+                    <a href="#" class="hamburger-toggle toggled-class" data-toggle-class="#menu2;hidden-xs hidden-sm">
+                        <i class="icon icon--sm stack-interface stack-menu"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Shared/_TopMenu.cshtml")
+    @Html.Partial("~/Views/Shared/_Search.cshtml")
+</div>
+<div class="main-container">
+    @RenderPage("~/Views/_Info.cshtml")
+</div>
+@*@RenderPage("~/Views/_Stills.cshtml")*@
+@RenderPage("~/Views/_Resources.cshtml")
+<!--关联影片区域-->
+@*<footer class="space--sm footer bg--dark " style="background: #0f0b11;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <span class="type--fine-print">&copy; <span class="update-year"></span> bt0.com</span>
+            </div>
+            <div class="col-sm-6 text-right text-left-xs">
+                <ul class="social-list list-inline list--hover"></ul>
+            </div>
+        </div>
+        <!--end of row-->
+    </div>
+    <!--end of container-->
+</footer>*@
+@Html.Partial("~/Views/Shared/_BottomCopyright.cshtml")

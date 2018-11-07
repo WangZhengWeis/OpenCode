@@ -1,0 +1,29 @@
+﻿@model List<Model.GaoQing.BaseMovie>
+<div class="masonry__container">
+    @if (Model != null)
+    {
+        foreach (var m in Model)
+        {
+            <div class="masonry__item col-md-3 col-sm-6 col-xs-6" data-masonry-filter="@(m.Family==1?"电影":"电视剧")">
+                <a href="/subject/@m.Hash" target="_blank" class="block text-block">
+                    <figure class="effect-sadie">
+                        <img class="poster" family="@(m.Family==1?"movie":"tvshow")" alt="@m.Name" src="@m.Poster" width="205px" />
+                        <figcaption>
+                            <h2>@m.Name<br><span>@(m.Nd.HasValue ? m.Nd.ToString() : "")</span></h2>
+                            <p>
+                                <span property="v:summary">
+                                    @(Html.Raw(m.Description))
+                                </span>
+                            </p>
+                            <h5>
+                                @m.Name<span class="type--fine-print">@(m.Nd.HasValue ? "(" + m.Nd.ToString() + ")" : "")</span>
+                                <span class="tag-sm tag-picture2">@(m.Rate.HasValue ? String.Format("{0:N1}", m.Rate) : "")</span>
+                            </h5>
+                            <em>9.7</em>
+                        </figcaption>
+                    </figure>
+                </a>
+            </div>
+        }
+    }
+</div>

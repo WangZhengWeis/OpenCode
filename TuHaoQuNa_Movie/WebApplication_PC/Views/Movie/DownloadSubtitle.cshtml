@@ -1,0 +1,83 @@
+﻿@model List<Model.GaoQing.Subtitle>
+@if (Model != null)
+{
+    <div class="tab-pane" id="sub">
+        <!--字幕分类按钮-->
+        <div id="btn-group-sub" class="btn-group" data-toggle="buttons">
+            <label style="width:128px;" id="sub-all" class="btn btn-default active">
+                <input type="radio" name="options" id="radio-all">全部&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count</span>
+            </label>
+            <label style="width:126px;" id="sub-bluray" class="btn btn-default">
+                <input type="radio" name="options" id="radio-bluray">BluRay&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count(c => c.Clear.Contains("BluRay"))</span>
+            </label>
+            <label style="width:126px;" id="sub-WEBDL" class="btn btn-default">
+                <input type="radio" name="options" id="radio-webdl">WEB-DL&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count(c => c.Clear.Contains("WEB-DL"))</span>
+            </label>
+            <label style="width:126px;" id="sub-HDTV" class="btn btn-default">
+                <input type="radio" name="options" id="radio-hdtv">HDTV&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count(c => c.Clear.Contains("HDTV"))</span>
+            </label>
+            <label style="width:126px;" id="sub-others" class="btn btn-default">
+                <input type="radio" name="options" id="radio-others">未知&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count(c => c.Clear.Contains("未知"))</span>
+            </label>
+        </div>
+
+        <table id="subtable" class="table table-striped" style="word-wrap: break-word;word-break: break-all;">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                //class="hidden-cililian"
+                <tr id="@item.Clear" class="@(i > 10 ? "hidden-ygp" : "")">
+                    <td>
+                        <span><b>@item.Title</b></span>
+                        <br>
+                        <span style="color:#9D9D9D;">
+                            大小：
+                            <span style="width:70px;align:center;display:inline-block;" class="label label-warning">@(item.Size.HasValue ? String.Format("{0:N2}", item.Size) + "KB" : "")</span> 制作组：
+                            <span style="width:90px;align:center;display:inline-block;" class="label label-warning">@item.Source</span> 格式：
+                            @{
+                                if (!string.IsNullOrWhiteSpace(item.Format))
+                                {
+                                    var formats = item.Format.Split(',');
+                                    foreach (var f in formats)
+                                    {
+                                        if (!string.IsNullOrWhiteSpace(f))
+                                        {
+                                            <span class="label label-danger">@f</span>
+                                        }
+                                    }
+                                }
+                            }
+                            <span style="float:right;">
+                                <span class="btn-info btn-sm" title="@item.Language.Replace(","," ")">@item.Meta</span>
+                                <a class="btn-primary btn-sm" href="@item.Download">字幕下载</a>
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+            }
+            @if (Model.Count > 0)
+            {
+                <tr class="hidden-ygp-btn">
+                    <td colspan="2">
+                        <a style="width:100%;background-color:#eee" class="btn btn-sm" href="javascript:;" onclick="$('.hidden-ygp').show();$('.hidden-ygp-btn').hide();$('.show-ygp-btn').show()">
+                            显示全部——【请根据关键词Bluray、HDTV、WEB-DL、HD-TC等选择对应的字幕】
+                        </a>
+                    </td>
+                </tr>
+                <tr class="show-ygp-btn" style="display:none">
+                    <td colspan="2">
+                        <a style="width:100%;background-color:#eee" class="btn btn-sm" href="javascript:;" onclick="$('.hidden-ygp').hide();$('.hidden-ygp-btn').show();$('.show-ygp-btn').hide()">
+                            显示部分——【请根据关键词Bluray、HDTV、WEB-DL、HD-TC等选择对应的字幕】
+                        </a>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>相关资源暂未收录，请耐心等待或留言提醒我们！</td>
+                </tr>
+            }
+        </table>
+    </div>
+}

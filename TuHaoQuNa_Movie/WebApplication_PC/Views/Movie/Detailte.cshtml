@@ -1,0 +1,179 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12" style="display:none;width:120%;margin-left:-10%" id="playbox">
+    <div>
+        <button style="font-size:36px;opacity:.6;color:red" type="button" class="close" onclick="$('#playbox').slideUp(500);$(window.parent.document).find('#theplay').attr('src','');" aria-hidden="true">&times;</button>
+        <iframe frameborder="0" width="100%" height="660px" src="" id="theplay"></iframe>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9" style="width:660px">
+        <!-- 网站轮播公告 -->
+        @RenderPage("~/Views/Shared/_Notice.cshtml")
+        @{Html.RenderAction("MovieInfo", "Movie");}
+        @{Html.RenderAction("RecommendMovies", "Movie");}
+        <h4 class="yjbjs">影片资源</h4>
+        <div style="width:100%;margin-top:-50px">
+            <ul class="nav nav-tabs" id="tab_link">
+                @*<li><a href="#liveplay" data-toggle="tab">在线播放</a></li>*@
+                <li><a href="#sub" data-toggle="tab">字幕下载</a></li>
+                <li class="active"><a href="#cililian" data-toggle="tab">种子下载</a></li>
+                <!--<li><a href="#ygp" data-toggle="tab">预告片</a></li>-->
+            </ul>
+            <div class="tab-content">
+                @{ Html.RenderAction("DownloadMovie", "Movie");}
+                @{ Html.RenderAction("DownloadSubtitle", "Movie");}
+            </div>
+        </div>
+    </div>
+    <!-- 左边内容 -->
+    @RenderPage("~/Views/Shared/_Right.cshtml")
+</div>
+<script charset="gbk" type="text/javascript" src="/static/js/suggest.js"></script>
+
+<script type="text/javascript">
+    var params = { "XOffset": 0, "YOffset": 0, "fontColor": "#444", "fontColorHI": "#000", "fontSize": "16px", "fontFamily": "arial", "borderColor": "gray", "bgcolorHI": "#ebebeb", "sugSubmit": true };
+    BaiduSuggestion.bind("q", params);
+</script>
+
+<script type="text/javascript" charset="utf-8" src="https://changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysEpIyck"></script></div>
+<script>
+    //磁力分类
+    $(function () {
+        $("#all").button('toggle');
+        var labels = $('#btn-group').find("label");
+        labels.click(function () {
+            onSearch(this.id);
+        });
+    });
+    function onSearch(obj) {//js函数开始
+
+        var storeId = document.getElementById('cili');
+        var rowsLength = storeId.rows.length;
+        var key = obj;
+        for (var i = 0; i < rowsLength; i++) {
+            var searchText = storeId.rows[i].id;
+            if (key.match("all")) {
+                storeId.rows[i].style.display = "table-row";
+                $('.hidden-cililian').hide();
+                $('.hidden-cililian-btn').show();
+                $('.show-cililian-btn').hide();
+                continue;
+            }
+            if (key.match("3D")) {
+                if (searchText.indexOf("3D") != -1) {
+                    storeId.rows[i].style.display = "table-row";
+                }
+                else {
+                    storeId.rows[i].style.display = "none";
+                }
+                continue;
+            }
+            if (key.match("原盘")) {
+                if (searchText.match("原盘") || searchText.match("REMUX") || searchText.match("3D原盘") || searchText.match("3D原盘中字") || searchText.match("原盘中字")) {
+                    storeId.rows[i].style.display = "table-row";
+                }
+                else {
+                    storeId.rows[i].style.display = "none";
+                }
+                continue;
+            }
+
+            if (key.match("标清")) {
+                if (searchText.match("WEB-DL") || searchText.match("HDTV") || searchText.match("硬字幕版")) {
+                    storeId.rows[i].style.display = "table-row";
+                }
+                else {
+                    storeId.rows[i].style.display = "none";
+                }
+                continue;
+            }
+
+            if (key.match("未知")) {
+                if (searchText.match("非高清或错误")) {
+                    storeId.rows[i].style.display = "table-row";
+                }
+                else {
+                    storeId.rows[i].style.display = "none";
+                }
+                continue;
+            }
+
+            if (searchText.match(key)) {
+                storeId.rows[i].style.display = "table-row";
+            }
+            else {
+                storeId.rows[i].style.display = "none";
+            }
+
+        }
+    }
+
+    // 字幕分类
+    $(function () {
+        $("#sub-all").button('toggle');
+        var labels = $('#btn-group-sub').find("label");
+        labels.click(function () {
+            onSearchsub(this.id);
+        });
+    });
+    function onSearchsub(obj) {//js函数开始
+
+        var storeId = document.getElementById('subtable');
+        var rowsLength = storeId.rows.length;
+        var key = obj;
+        for (var i = 0; i < rowsLength; i++) {
+            var searchText = storeId.rows[i].id;
+            if (key.match("sub-all")) {
+                storeId.rows[i].style.display = "table-row";
+                $('.hidden-ygp').hide();
+                $('.hidden-ygp-btn').show();
+                $('.show-ygp-btn').hide();
+                continue;
+            }
+            if (key.match("sub-bluray")) {
+                if (searchText.indexOf("BluRay") != -1) {
+                    storeId.rows[i].style.display = "table-row";
+                }
+                else {
+                    storeId.rows[i].style.display = "none";
+                }
+                continue;
+            }
+            if (key.match("sub-WEBDL")) {
+                if (searchText.match("WEB-DL")) {
+                    storeId.rows[i].style.display = "table-row";
+                }
+                else {
+                    storeId.rows[i].style.display = "none";
+                }
+                continue;
+            }
+
+            if (key.match("sub-HDTV")) {
+                if (searchText.match("HDTV")) {
+                    storeId.rows[i].style.display = "table-row";
+                }
+                else {
+                    storeId.rows[i].style.display = "none";
+                }
+                continue;
+            }
+
+            if (key.match("sub-others")) {
+                if (searchText.match("未知")) {
+                    storeId.rows[i].style.display = "table-row";
+                }
+                else {
+                    storeId.rows[i].style.display = "none";
+                }
+                continue;
+            }
+
+
+
+        }
+    }
+</script>

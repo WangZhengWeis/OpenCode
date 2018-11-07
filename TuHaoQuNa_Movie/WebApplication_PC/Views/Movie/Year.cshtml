@@ -1,0 +1,15 @@
+﻿@using Utility
+@model List<string>
+@{
+    string year = Request.QueryString["year"];
+}
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@(string.IsNullOrWhiteSpace(Model.FirstOrDefault(m => m == year)) ? "年代" : year)<b class="caret"></b></a>
+    <ul class="dropdown-menu" style="width:430px">
+        <li style="width:70px"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "year","" } }))">不限</a></li>
+        @foreach (var item in Model)
+        {
+            <li style="width:70px;float:left"><a tabindex="-1" href="/@(Request.GetAppend(new Dictionary<string, string>() { { "year",item } }))">@item</a></li>
+        }
+    </ul>
+</li>

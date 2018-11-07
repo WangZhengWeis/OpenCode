@@ -1,0 +1,75 @@
+﻿@model Movie
+@if (Model != null)
+{
+    if (Model.Player != null)
+    {
+        var groups = Model.Player.GroupBy(g => g.Platform);
+        <div class="tab__content">
+            @foreach (var item in groups)
+            {
+                var p_name = "";
+                switch (item.Key)
+                {
+                    case "youku":
+                        p_name = "优酷";
+                        break;
+                    case "iqiyi":
+                        p_name = "爱奇艺";
+                        break;
+                    case "qq":
+                        p_name = "腾讯视频";
+                        break;
+                    case "sohu":
+                        p_name = "搜狐";
+                        break;
+                    case "le":
+                        p_name = "乐视";
+                        break;
+                    case "pptv":
+                        p_name = "PPTV";
+                        break;
+                    default:
+                        p_name = "其它";
+                        break;
+
+                }
+                <div class="picture-container">
+                    <div id="@item.Key" class="picture-title type--bold">
+                        @p_name
+                    </div>
+                    @foreach (var m in item.OrderBy(o=>o.Episodes))
+                    {
+                        <div class="container">
+                            <div class="col-md-12">
+                                <a class="torrent-title" style="color: #3f96ec;" target="_blank" href="/player/@m.ID" target="_blank">@m.Name</a>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="tag-sm tag-size text-center">
+                                    @p_name
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                @if (m.Episodes.HasValue)
+                                {
+                                    <div class="tag-sm tag-picture3 text-center">
+                                        @("第"+m.Episodes.Value+"集")
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-4">
+                                <a target="_blank" href="/Player/@m.ID">
+                                    <div class="tag-sm tag-magnet text-center">
+                                        在线播放
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-12 border-bottom-1px"></div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+}
+
+

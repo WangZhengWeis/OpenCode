@@ -1,0 +1,197 @@
+﻿@{ 
+    var categorys = new BLL.Movie_BLL().GetCategoryList();
+    var countrys = new BLL.Movie_BLL().GetCountryList();
+    string url = ViewBag.Url;
+    int now_year = DateTime.Now.Year;
+
+    var type = ViewBag.Type;
+    var country = ViewBag.Country;
+    var year = ViewBag.Year;
+    year = year == "all" ? "" : year;
+    var order = ViewBag.Order;
+}
+<div class="col-md-12 col-sm-12 col-xs-12  hidden-sm hidden-xs" style="margin-bottom: 2em;background: rgba(37, 37, 37, 0.32);border-radius: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="jumbotron masthead">
+                <div class="typebox">
+                    <dl class="prel hidden-sm hidden-xs">
+                        <dt>影视类型:</dt>
+                        <dd>
+                            <a name="par_type" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : ("/" + year)),
+                                                     0,
+                                                     country,
+                                                     order,
+                                                     1
+                                                     ))" class="tag-sm tag-type" data-val="0">不限</a>
+                            @if (categorys != null)
+                            {
+                                foreach (var m in categorys)
+                                {
+                                    <a name="par_type" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : ("/" + year)),
+                                                     m.ID,
+                                                     country,
+                                                     order,
+                                                     1
+                                                     ))" data-val="@m.ID">@m.Name</a>
+                                }
+                            }
+                        </dd>
+                    </dl>
+                    <dl class="prel hidden-sm hidden-xs">
+                        <dt>制片地区:</dt>
+                        <dd>
+                            <a name="par_country" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : ("/" + year)),
+                                                     type,
+                                                     0,
+                                                     order,
+                                                     1
+                                                     ))" class="tag-sm bg--primary" data-val="0">不限</a>
+                            @if (countrys != null)
+                            {
+                                foreach (var m in countrys)
+                                {
+                                    <a name="par_country" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                    url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : ("/" + year)),
+                                                     type,
+                                                     m.ID,
+                                                     order,
+                                                     1
+                                                     ))" data-val="@m.ID">@m.Name</a>
+                                }
+                            }
+                        </dd>
+                    </dl>
+                    <dl class="prel hidden-sm hidden-xs">
+                        <dt>上映年份:</dt>
+                        <dd>
+                            <a name="par_year" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     "",
+                                                     type,
+                                                     country,
+                                                     order,
+                                                     1
+                                                     ))" class="tag-sm tag-size" data-val="all">不限</a>
+                            @for (int i = 0; i < 20; i++)
+                            {
+                                <a name="par_year" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     "/"+(now_year-i),
+                                                     type,
+                                                     country,
+                                                     order,
+                                                     1
+                                                     ))" data-val="@(now_year-i)">@(now_year-i)</a>
+                            }
+                            <a name="par_year" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     "/"+"other",
+                                                     type,
+                                                     country,
+                                                     order,
+                                                     1
+                                                     ))" data-val="other">其它</a>
+                        </dd>
+                    </dl>
+                    <dl class="prel type--bold">
+                        <dt>影视排序:</dt>
+                        <dd>
+                            <a name="par_order" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : ("/" + year)),
+                                                     type,
+                                                     country,
+                                                     0,
+                                                     1
+                                                     ))" class="tag-sm tag-picture2" data-val="0">最近更新</a>
+                            <a name="par_order" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : ("/" + year)),
+                                                     type,
+                                                     country,
+                                                     1,
+                                                     1
+                                                     ))" data-val="1">热门推荐</a>
+                            <a name="par_order" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : ("/" + year)),
+                                                     type,
+                                                     country,
+                                                     2,
+                                                     1
+                                                     ))" data-val="2">豆瓣评分</a>
+                            <a name="par_order" href="@(string.Format("{0}{1}/{2}-{3}-{4}-{5}",
+                                                     url,
+                                                     (string.IsNullOrWhiteSpace(year) ? "" : ("/" + year)),
+                                                     type,
+                                                     country,
+                                                     3,
+                                                     1
+                                                     ))" data-val="3">可在线播放</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var type = '@type';
+    var country = '@country';
+    var year = '@year';
+    var order = '@order';
+    type = type?type:"0";
+    country = country?country:"0";
+    year = year?year:"all";
+    order = order?order:"0";
+
+
+    $('[name="par_type"]').each(function (){
+            var type_node = $(this);
+            type_node.removeClass("tag-sm tag-type");
+            var t_val = type_node.data("val").toString();
+            if(type==t_val){
+                type_node.addClass("tag-sm tag-type");
+            }
+        });
+
+        $('[name="par_country"]').each(function (){
+            var country_node = $(this);
+            country_node.removeClass("tag-sm bg--primary");
+            var t_val = country_node.data("val").toString();
+            if(country==t_val){
+                country_node.addClass("tag-sm bg--primary");
+            }
+        });
+
+        $('[name="par_year"]').each(function (){
+            var year_node = $(this);
+            year_node.removeClass("tag-sm tag-size");
+            var t_val = year_node.data("val").toString();
+            if(year==t_val){
+                year_node.addClass("tag-sm tag-size");
+            }
+        });
+
+        $('[name="par_order"]').each(function (){
+            var order_node = $(this);
+            order_node.removeClass("tag-sm tag-picture2");
+            var t_val = order_node.data("val").toString();
+            if(order==t_val){
+                order_node.addClass("tag-sm tag-picture2");
+            }
+        });
+
+    $(function () {
+
+    });
+</script>

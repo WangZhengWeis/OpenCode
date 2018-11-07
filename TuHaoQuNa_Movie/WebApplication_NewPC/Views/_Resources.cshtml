@@ -1,0 +1,53 @@
+﻿<section class="text-center bg--dark" style="position: relative;z-index: 9;background:#1a151c;padding-top: 1em">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 boxed bg--secondary" style="background: rgba(0, 0, 0, 0.08);">
+                <div class="tabs-container" data-content-align="left">
+                    <ul class="tabs">
+                        <li class="active">
+                            <div class="tab__title text-center">
+                                <i class="icon icon--sm block icon-Cloud"></i>
+                                <span class="h5">影片资源</span>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="tab__title text-center">
+                                <i class="icon icon--sm block icon-Preview"></i>
+                                <span class="h5">在线播放</span>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="tab__title text-center">
+                                <i class="icon icon--sm block icon-Text-Effect"></i>
+                                <span class="h5">字幕资源</span>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="tab__title text-center">
+                                <i class="icon icon--sm block icon-Love-User"></i>
+                                <span class="h5">演员信息</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="tabs-content">
+                        <li class="active">
+                            @RenderPage("~/Views/_Download.cshtml")
+                        </liclass="active">
+                        <li class="active">
+                            @RenderPage("~/Views/_Player.cshtml")
+                        </li>
+                        <li class="">
+                            @RenderPage("~/Views/_Subtitle.cshtml")
+                        </li>
+                        <li class="">
+                            @RenderPage("~/Views/_Information.cshtml")
+                        </li>
+                    </ul>
+                </div>
+                <!--end of tabs container-->
+            </div>
+        </div>
+        <!--end of row-->
+    </div>
+    <!--end of container-->
+</section>

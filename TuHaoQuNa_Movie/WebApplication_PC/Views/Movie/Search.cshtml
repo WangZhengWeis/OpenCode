@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row" id="indexshow">
+    <div class="col-md-9" style="width:660px">
+        <h3>相关搜索：@Request.QueryString["q"] (本站搜索结果如下)</h3>
+        <div class="row" style="margin-left:5px;line-height:25px;">
+        </div>
+        <ul id="result1" class="item-list nav" style="margin-top:30px">
+            @{
+                Html.RenderAction("SearchList", "Movie");
+            }
+        </ul>
+        <div id="loadmore" lass="col-md-12" style="width:600px;margin-top:10px;margin-left:20px;background:#efefef;padding:5px 0px;" align="center">
+            <a style="width:100%;" onclick="return loadnext('@Request.QueryString["q"]');" href="javascript:;">加载更多</a>
+        </div>
+    </div>
+    <!-- 左边内容 -->
+    @{Html.RenderPartial("~/Views/Shared/_Right.cshtml");}
+    @*@RenderPage("~/Views/Shared/_Right.cshtml")*@
+</div>
+<script type="text/javascript" charset="utf-8" src="https://changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysEpIyck"></script>
+<script>
+    var p = 1; var scrollindex = 1800;
+    function loadnext(q) {
+        p++;
+        $.ajax({
+            type: "GET",
+            url: "/movie/searchlist?q=" + q + "&page=" + p,
+            dataType: "html",
+            success: function (out) { $("#result1").html($("#result1").html() + out); $('body').animate({ scrollTop: scrollindex + 'px' }, 800); scrollindex += 1700; }
+        });
+        return false;
+    }
+</script>

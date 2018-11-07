@@ -1,0 +1,29 @@
+﻿@model List<Model.GaoQing.BaseMovie>
+@if (Model != null)
+{
+    if (Model.Count >= 4)
+    {
+        <div style="padding:5px;padding-bottom:10px;border-bottom:2px #ccc dotted">
+            <h4 class="yjbjs">评分最高</h4>
+            @for (int i = 0; i < 4; i++)
+            {
+                <a target="_blank" href="/movie/detailte/@Model[i].Hash">
+                    <div style="position:relative;float:left">
+                        <img style="width:138px;height:190px" title="@Model[i].Name" src="@Model[i].Poster">&nbsp;
+                        <div style="background: rgba(0, 0, 0, 0.6);color: #FFF;display: block;left: 0;right: 0;position: absolute;bottom: 0;font-size: 12px;text-align: center;margin:0px 4px 0px 0px;"><span>@Model[i].Name</span></div>
+                    </div>
+                </a>
+            }
+            <table>
+                @for (int i = 4; i < Model.Count; i++)
+                {
+                    var m = Model[i];
+                    <tr style="height:30px;line-height:30px;border-top:1px #ccc dotted">
+                        <td style="width:260px"><a target="_blank" style="font-size:12px" href="/movie/detailte/@m.Hash">@m.Name</a></td>
+                        <td><span style="color:red;font-size:12px">@String.Format("{0:N1}", m.Rate)</span></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+}

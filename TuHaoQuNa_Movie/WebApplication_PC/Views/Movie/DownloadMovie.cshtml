@@ -1,0 +1,62 @@
+﻿@model List<Model.GaoQing.MovieTorrent>
+@if (Model != null)
+{
+    <div class="tab-pane active" id="cililian">
+
+        <div id="btn-group" class="btn-group" data-toggle="buttons">
+            <label style="width:95px;" id="all" class="btn btn-default">
+                <input type="radio" name="options" id="alll">全部&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count</span>
+            </label>
+            <label style="width:90px;" id="原盘" class="btn btn-default">
+                <input type="radio" name="options" id="yuanpan">原盘&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count(c => c.Clear.Contains("原盘"))</span>
+            </label>
+            <label style="width:90px;" id="1080P" class="btn btn-default">
+                <input type="radio" name="options" id="1080p">1080P&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count(c => c.Clear.Contains("1080"))</span>
+            </label>
+            <label style="width:90px;" id="720P" class="btn btn-default">
+                <input type="radio" name="options" id="720P">720P&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count(c => c.Clear.Contains("720"))</span>
+            </label>
+            <label style="width:90px;" id="标清" class="btn btn-default">
+                <input type="radio" name="options" id="biaoqing">标清&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count(c => c.Clear.Contains("WEB-DL")|| c.Clear.Contains("硬字幕版")|| c.Clear.Contains("HDTV"))</span>
+            </label>
+            <label style="width:90px;" id="3D" class="btn btn-default">
+                <input type="radio" name="options" id="3D">3D&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count(c => c.Clear.Contains("3D"))</span>
+            </label>
+            <label style="width:90px;" id="未知" class="btn btn-default">
+                <input type="radio" name="options" id="nohd">未知&nbsp;&nbsp;<span class="badge" style="color:red;background-color:LightGrey;">@Model.Count(c => c.Clear.Contains("非高清或错误"))</span>
+            </label>
+        </div>
+
+        <table id="cili" class="table table-striped" style="word-wrap: break-word;word-break: break-all;">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                //class="hidden-cililian"
+                <tr id="@item.Clear" class="@(i>10?"hidden-cililian":"")">
+                    <td>
+                        <b>@item.Title</b><br><span style="color:#9D9D9D;">
+                            大小：
+                            <span style="width:65px;align:center;display:inline-block;" class="label label-warning">@(item.Size.HasValue ? String.Format("{0:N2}", (Convert.ToDouble(item.Size.Value) / ((1024.0 * 1024.0)))) + "GB" : "")</span> 清晰度：
+                            <span style="width:87px;align:center;display:inline-block;" class="label label-danger">@item.Meta</span><span style="float:right;">
+                                <a class="btn-info btn-sm" target="_blank" rel="nofollow" href="@item.Torrent">种子下载</a>
+
+                                <a class="btn-primary btn-sm" rel="nofollow" href="@item.Magnet"> 磁力链接</a>
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+            }
+            @if (Model.Count > 0)
+            {
+                <tr class="hidden-cililian-btn"><td colspan="2"><a style="width:100%;background-color:#eee" class="btn btn-sm" href="javascript:;" onclick="$('.show-cililian-btn').show();$('.hidden-cililian').show();$('.hidden-cililian-btn').hide()">显示全部——【请用迅雷VIP、115或百度网盘选择有速度、可离线的种子下载】</a></td></tr>
+                <tr class="show-cililian-btn" style="display:none"><td colspan="2"><a style="width:100%;background-color:#eee" class="btn btn-sm" href="javascript:;" onclick="$('.hidden-cililian').hide();$('.hidden-cililian-btn').show();$('.show-cililian-btn').hide()">显示部分——【请用迅雷VIP、115或百度网盘选择有速度、可离线的种子下载】</a></td></tr>
+            }
+            else
+            {
+                <tr>
+                    <td>相关资源暂未收录，请耐心等待或留言提醒我们！</td>
+                </tr>
+            }
+        </table>
+    </div>
+}
